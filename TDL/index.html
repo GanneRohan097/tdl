@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    
     <div class="container">
       <h1>To-Do List</h1>
       <div class="input-container">
@@ -15,7 +16,7 @@
       </div>
 
       <div class="todo-list" id="todoList">
-        <h3>Tasks</h3>
+        <h3 class="total">Total Tasks</h3>
         <div id="highPriorityContainer">
        
         
@@ -24,19 +25,83 @@
         
       </div>
     </div>
+    <style>
+      .com{
+        text-decoration: line-through;;
+        color: rgb(59, 62, 47);
+      }
+      .remove{
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        margin-left: 80px;
+        margin-bottom: 5px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+      }
+      .remove:hover{
+        color: red;
+        background-color: white;
+      }
+    </style>
     <script>
+      let s=0;
+     
             function add(){
-                let x=document.getElementById('taskInput').value;
+              let x=document.getElementById('taskInput').value;
+              if(x=='' || x==' '){
+                alert("Task should not be empty");
+                  return;
+              }
+                s=s+1;
+                if(s>14){
+                  alert("Maximum tasks reached");
+                  return;
+                }
+               
+                
                 let new1=document.createElement("div");
-                let checkb=document.createElement("input");
-                checkb.type="checkbox";
-                let l=document.createElement("label");
+                const checkb=document.createElement("input");
+      checkb.type="checkbox";
+                let l=document.createElement("Text");
                 l.innerText=x;
+                checkb.addEventListener('change',function(){
+                  if(this.checked){
+                    l.classList.add("com");
+                    let r=document.createElement("button");
+                    r.innerText='Remove';
+                    r.className='remove';
+                    new1.appendChild(r);
+                    r.onclick=function(){
+                      new1.remove();
+                      s--;
+                      y.innerText=`Total Tasks ${s}`;
+                    };
+                  }
+                  else{
+                    l.classList.remove("com");
+                    let e=new1.querySelector('.remove');
+                    if(e){
+                      e.remove();
+                    }
+                  }
+                  
+                });
                 new1.appendChild(checkb);
                 new1.appendChild(l);
+              
                 document.getElementById('highPriorityContainer').appendChild(new1);
                 document.getElementById('taskInput').value="";
+                let y=document.getElementsByClassName('total')[0];
+                y.innerText=`Total Tasks ${s}`;
+                
+                  
             }
+            
+            
+            
+            
     </script>
   </body>
 </html>
