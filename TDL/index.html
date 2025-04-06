@@ -47,6 +47,7 @@
     </style>
     <script>
       let s=0;
+      const li=[];
      
             function add(){
               let x=document.getElementById('taskInput').value;
@@ -54,6 +55,14 @@
                 alert("Task should not be empty");
                   return;
               }
+              if(li.includes(x)){
+                alert("Repeated Task!");
+                return;
+              }
+              else{
+              li.push(x)
+              }
+
                 s=s+1;
                 if(s>14){
                   alert("Maximum tasks reached");
